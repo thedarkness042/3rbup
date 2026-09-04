@@ -5327,6 +5327,10 @@
             wid = window.turnstile.render(container, {
               sitekey: SITEKEY,
               execution: "execute",
+              // Hidden captcha: the widget only becomes visible if Cloudflare
+              // requires a manual interaction (risk-based). During the usual
+              // automated solve it stays fully hidden.
+              appearance: "interaction-only",
               callback: (xs) => {
                 const rz = this.pendingResolvers[alq];
                 if (!xs) {
