@@ -9,8 +9,8 @@
 (function () {
   "use strict";
 
-  var WASM_PRIMARY = "https://3rb.io/js/dist/b3be84e65f826197470c.module.wasm";
-  var WASM_FALLBACK = "https://raw.githubusercontent.com/ssdarkness70-droid/now3rb/main/b3be84e65f826197470c.module.wasm";
+  var WASM_PRIMARY = "https://3rb.io/js/dist/37c2899eff56e1a2596a.module.wasm";
+  var WASM_FALLBACK = "https://3rb.io/js/dist/37c2899eff56e1a2596a.module.wasm";
 
   // ------------------------------------------------------------------ glue
   var T = new TextDecoder("utf-8", { ignoreBOM: true, fatal: true });
@@ -36,8 +36,36 @@
     );
   }
   var I = null;
+  var F64 = null;
   function x() {
     return (null !== I && 0 !== I.byteLength) || (I = new Uint8Array(E.memory.buffer)), I;
+  }
+  function Q(e, t, n) {
+    if (void 0 === n) {
+      var r = C.encode(e),
+        i = t(r.length, 1) >>> 0;
+      return x().subarray(i, i + r.length).set(r), (P = r.length), i;
+    }
+    for (var _ = e.length, o = t(_, 1) >>> 0, a = x(), s = 0; s < _; s++) {
+      var l = e.charCodeAt(s);
+      if (l > 127) break;
+      a[o + s] = l;
+    }
+    if (s !== _) {
+      0 !== s && (e = e.slice(s));
+      o = n(o, _, (_ = s + 3 * e.length), 1) >>> 0;
+      var u = x().subarray(o + s, o + _);
+      o = n(o, _, (s += C.encodeInto(e, u).written), 1) >>> 0;
+    }
+    return (P = s), o;
+  }
+  function O2(arr, t) {
+    var n = t(8 * arr.length, 8) >>> 0;
+    return (
+      (null !== F64 && 0 !== F64.byteLength || (F64 = new Float64Array(E.memory.buffer)), F64.set(arr, n / 8)),
+      (P = arr.length),
+      n
+    );
   }
   function m(e, t) {
     return (function (e, t) {
@@ -175,12 +203,12 @@
       E.__wbindgen_add_to_stack_pointer(16);
     }
   });
-  BR(ShieldSession.prototype, "seal", function (e) {
+  BR(ShieldSession.prototype, "sealControl", function (e) {
     try {
       var t = E.__wbindgen_add_to_stack_pointer(-16),
         n = O(e, E.__wbindgen_export2),
         r = P;
-      E.shieldsession_seal(t, this.__wbg_ptr, n, r);
+      E.shieldsession_sealControl(t, this.__wbg_ptr, n, r);
       var i = k().getInt32(t + 0, true),
         _ = k().getInt32(t + 4, true),
         o = k().getInt32(t + 8, true);
@@ -189,6 +217,142 @@
       return E.__wbindgen_export3(i, 1 * _, 1), a;
     } finally {
       E.__wbindgen_add_to_stack_pointer(16);
+    }
+  });
+  BR(ShieldSession.prototype, "mouse", function (e, t) {
+    try {
+      var n = E.__wbindgen_add_to_stack_pointer(-16);
+      E.shieldsession_mouse(n, this.__wbg_ptr, e, t);
+      var r = k().getInt32(n + 0, true),
+        _ = k().getInt32(n + 4, true),
+        i = k().getInt32(n + 8, true);
+      if (k().getInt32(n + 12, true)) throw R(i);
+      var o = w(r, _).slice();
+      return E.__wbindgen_export3(r, 1 * _, 1), o;
+    } finally {
+      E.__wbindgen_add_to_stack_pointer(16);
+    }
+  });
+  BR(ShieldSession.prototype, "split", function () {
+    try {
+      var e = E.__wbindgen_add_to_stack_pointer(-16);
+      E.shieldsession_split(e, this.__wbg_ptr);
+      var t = k().getInt32(e + 0, true),
+        n = k().getInt32(e + 4, true),
+        r = k().getInt32(e + 8, true);
+      if (k().getInt32(e + 12, true)) throw R(r);
+      var _ = w(t, n).slice();
+      return E.__wbindgen_export3(t, 1 * n, 1), _;
+    } finally {
+      E.__wbindgen_add_to_stack_pointer(16);
+    }
+  });
+  BR(ShieldSession.prototype, "eject", function () {
+    try {
+      var e = E.__wbindgen_add_to_stack_pointer(-16);
+      E.shieldsession_eject(e, this.__wbg_ptr);
+      var t = k().getInt32(e + 0, true),
+        n = k().getInt32(e + 4, true),
+        r = k().getInt32(e + 8, true);
+      if (k().getInt32(e + 12, true)) throw R(r);
+      var _ = w(t, n).slice();
+      return E.__wbindgen_export3(t, 1 * n, 1), _;
+    } finally {
+      E.__wbindgen_add_to_stack_pointer(16);
+    }
+  });
+  BR(ShieldSession.prototype, "spawn", function (e) {
+    try {
+      var t = E.__wbindgen_add_to_stack_pointer(-16),
+        n = O(e, E.__wbindgen_export2),
+        r = P;
+      E.shieldsession_spawn(t, this.__wbg_ptr, n, r);
+      var i = k().getInt32(t + 0, true),
+        _ = k().getInt32(t + 4, true),
+        o = k().getInt32(t + 8, true);
+      if (k().getInt32(t + 12, true)) throw R(o);
+      var a = w(i, _).slice();
+      return E.__wbindgen_export3(i, 1 * _, 1), a;
+    } finally {
+      E.__wbindgen_add_to_stack_pointer(16);
+    }
+  });
+  BR(ShieldSession.prototype, "omegaHello", function (e, t, n) {
+    try {
+      var r = E.__wbindgen_add_to_stack_pointer(-16),
+        _ = Q(e, E.__wbindgen_export2, E.__wbindgen_export4),
+        i = P,
+        o = Q(t, E.__wbindgen_export2, E.__wbindgen_export4),
+        a = P;
+      E.shieldsession_omegaHello(r, this.__wbg_ptr, _, i, o, a, n);
+      var s = k().getInt32(r + 0, true),
+        d = k().getInt32(r + 4, true),
+        l = k().getInt32(r + 8, true);
+      if (k().getInt32(r + 12, true)) throw R(l);
+      var u = w(s, d).slice();
+      return E.__wbindgen_export3(s, 1 * d, 1), u;
+    } finally {
+      E.__wbindgen_add_to_stack_pointer(16);
+    }
+  });
+  BR(ShieldSession.prototype, "omegaInput", function (e, t, n, r, _, i) {
+    try {
+      var o = E.__wbindgen_add_to_stack_pointer(-16),
+        a = O2(_, E.__wbindgen_export2),
+        s = P,
+        d = O2(i, E.__wbindgen_export2),
+        l = P;
+      E.shieldsession_omegaInput(o, this.__wbg_ptr, e, t, n, r, a, s, d, l);
+      var u = k().getInt32(o + 0, true),
+        g = k().getInt32(o + 4, true),
+        c = k().getInt32(o + 8, true);
+      if (k().getInt32(o + 12, true)) throw R(c);
+      var f = w(u, g).slice();
+      return E.__wbindgen_export3(u, 1 * g, 1), f;
+    } finally {
+      E.__wbindgen_add_to_stack_pointer(16);
+    }
+  });
+  function omegaGroups(grp) {
+    return new Float64Array([
+      grp.x,
+      grp.y,
+      grp.generation,
+      grp.waves,
+      grp.feed ? 1 : 0,
+      grp.spawn ? 1 : 0,
+      grp.line ? 1 : 0,
+    ]);
+  }
+  BR(ShieldSession.prototype, "seal", function (e) {
+    if (!this.established() || !this.__wbg_ptr) return e;
+    var t = new Uint8Array(e);
+    if (0 === t.length) return e;
+    try {
+      switch (t[0]) {
+        case 16:
+          if (t.length < 17) return this.sealControl(t);
+          var n = new DataView(t.buffer, t.byteOffset, t.byteLength);
+          return this.mouse(n.getFloat64(1, true), n.getFloat64(9, true));
+        case 17:
+          return this.split();
+        case 21:
+          return this.eject();
+        case 0:
+          return this.spawn(t.subarray(1, t.length - 1));
+        case 123:
+          if (t.length > 1 && 6 === t[1]) return this.sealControl(t);
+          var r = JSON.parse(new TextDecoder().decode(t));
+          return r && "omegaInput" === r.type
+            ? this.omegaInput(r.epoch, r.seq, r.active, !0 === r.spectate, omegaGroups(r.groups[0]), omegaGroups(r.groups[1]))
+            : r && "omegaHello" === r.type
+              ? this.omegaHello(r.secondaryName || "", r.secondarySkin || "", !0 === r.sealedJson)
+              : this.sealControl(t);
+        default:
+          return this.sealControl(t);
+      }
+    } catch (e2) {
+      return e;
     }
   });
   Object.defineProperty(ShieldSession, "prototype", { writable: false });
@@ -290,15 +454,15 @@
         return r.text();
       })
       .then(function (text) {
-        var m = text.match(/123:"([a-f0-9]+)"/);
+        var m = text.match(/893:"([a-f0-9]+)"/);
         if (!m) throw new Error("shield chunk not found in bundle");
-        return fetch("https://3rb.io/js/dist/123." + m[1] + ".bundle.js").then(function (r) {
+        return fetch("https://3rb.io/js/dist/893." + m[1] + ".bundle.js").then(function (r) {
           if (!r.ok) throw new Error("chunk fetch failed " + r.status);
           return r.text();
         });
       })
       .then(function (text) {
-        var m = text.match(/\.v\([^)]*"([a-f0-9]{20})"/);
+        var m = text.match(/\.v\([^)]*?"([a-f0-9]{20})"/);
         if (!m) throw new Error("shield wasm id not found in chunk");
         return "https://3rb.io/js/dist/" + m[1] + ".module.wasm";
       })
